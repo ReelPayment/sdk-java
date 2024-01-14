@@ -18,7 +18,7 @@ JDK: >= 1.8
 
 Configuration
 -------------
-
+```
 import com.google.gson.JsonObject;
 import com.reelpay.api.Transactions;
 
@@ -40,7 +40,7 @@ public class Test {
         //{"code":200,"message":"success","data":{"url":"https://pay.reelpay.com/df9fbe011ca2a1c70f20240112113339","time_expire":1705032219,"trade_no":""}}
     }
 }
-
+```
 
 ## Where can I get Appid and Appkey?
 Register and open a merchant account, go to application <a href="https://merchant.reelpay.com/" target="_blank" rel="external">management</a> after login background, and create and apply for an application to get the corresponding Appied and Appkey.
