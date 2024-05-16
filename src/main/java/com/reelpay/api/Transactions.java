@@ -20,27 +20,136 @@ public class Transactions extends Client {
         super.appKey = appKey;
     }
 
+    /**
+     * Create Payment Order
+     * @param req JsonObject
+     * @return JsonObject
+     */
     public JsonObject Pay(JsonObject req) {
         return request("/v1/transactions/pay", req);
     }
 
+    /**
+     * Create Payment Order
+     * @param out_trade_no Merchant Order ID
+     * @param currency_id Currency ID
+     * @param fiat_name Fiat name
+     * @param fiat_amount Fiat amount
+     * @return JsonObject
+     */
+    public JsonObject Pay(String out_trade_no, String currency_id, String fiat_name, String fiat_amount) {
+        JsonObject req = new JsonObject();
+        req.addProperty("out_trade_no", out_trade_no);
+        req.addProperty("currency_id", currency_id);
+        req.addProperty("fiat_name", fiat_name);
+        req.addProperty("fiat_amount", fiat_amount);
+        return request("/v1/transactions/pay", req);
+    }
+
+    /**
+     * Create Payment Order
+     * @param out_trade_no Merchant Order ID
+     * @param currency_id Currency ID
+     * @param fiat_name Fiat name
+     * @param fiat_amount Fiat amount
+     * @param callback callback URL
+     * @return JsonObject
+     */
+    public JsonObject Pay(String out_trade_no, String currency_id, String fiat_name, String fiat_amount, String callback) {
+        JsonObject req = new JsonObject();
+        req.addProperty("out_trade_no", out_trade_no);
+        req.addProperty("currency_id", currency_id);
+        req.addProperty("fiat_name", fiat_name);
+        req.addProperty("fiat_amount", fiat_amount);
+        req.addProperty("callback", callback);
+        return request("/v1/transactions/pay", req);
+    }
+
+    /**
+     * Get Amount (Get the current exchange price between TOKEN and fiat currency.)
+     * @param req JsonObject
+     * @return JsonObject
+     */
     public JsonObject Amount(JsonObject req) {
         return request("/v1/transactions/amount", req);
     }
 
+    /**
+     * Get Amount (Get the current exchange price between TOKEN and fiat currency.)
+     * @param currency_id Currency ID (https://docs.reelpay.com/payment-api/api-interface#token-list)
+     * @param fiat_name Fiat name (USD)
+     * @param fiat_amount Fiat amount (1.2)
+     * @return JsonObject
+     */
+    public JsonObject Amount(String currency_id, String fiat_name, String fiat_amount) {
+        JsonObject req = new JsonObject();
+        req.addProperty("currency_id", currency_id);
+        req.addProperty("fiat_name", fiat_name);
+        req.addProperty("fiat_amount", fiat_amount);
+        return request("/v1/transactions/amount", req);
+    }
+
+    /**
+     * Order Information Interface
+     * @param req JsonObject
+     * @return JsonObject
+     */
     public JsonObject Transaction(JsonObject req) {
         return request("/v1/transactions", req);
     }
 
+    /**
+     * Order Information Interface
+     * @param trade_no ReelPay order ID
+     * @return JsonObject
+     */
+    public JsonObject Transaction(String trade_no) {
+        JsonObject req = new JsonObject();
+        req.addProperty("trade_no", trade_no);
+        return request("/v1/transactions", req);
+    }
+
+
+    /**
+     * Close Order
+     * @param req JsonObject
+     * @return JsonObject
+     */
     public JsonObject Close(JsonObject req) {
         return request("/v1/transactions/close", req);
     }
 
-    public JsonObject Currency(JsonObject req) {
-        return request("/v1/transactions/currency", req);
+    /**
+     * Close Order
+     * @param trade_no ReelPay order ID
+     * @return JsonObject
+     */
+    public JsonObject Close(String trade_no) {
+        JsonObject req = new JsonObject();
+        req.addProperty("trade_no", trade_no);
+        return request("/v1/transactions/close", req);
+    }
+
+    public JsonObject Currency() {
+        return request("/v1/transactions/currency", new JsonObject());
     }
 
     public JsonObject Refund(JsonObject req) {
+        return request("/v1/transactions/refund", req);
+    }
+
+    /**
+     * Request Refund
+     * @param txid TXID transaction on the chain
+     * @param trade_no ReelPay order ID
+     * @param fuel GAS fee deduction method「1: merchant 2: user」
+     * @return JsonObject
+     */
+    public JsonObject Refund(String txid, String trade_no, int fuel) {
+        JsonObject req = new JsonObject();
+        req.addProperty("txid", txid);
+        req.addProperty("trade_no", trade_no);
+        req.addProperty("fuel", fuel);
         return request("/v1/transactions/refund", req);
     }
 

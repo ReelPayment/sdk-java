@@ -20,12 +20,12 @@ public class Client {
         Cover cover = new Cover(this.appKey, jsonBody.toString());
         cover.hmacSHA256Sign();
 
-        Map<String, String> hd = new HashMap<>();
-        hd.put("content-type","application/json");
-        hd.put("X-Timestamp", String.valueOf(cover.getTimestamp()));
-        hd.put("X-Appid", this.appId);
-        hd.put("X-Sign", cover.getSign());
-        Headers headers = Headers.of(hd);
+        Map<String, String> header = new HashMap<>();
+        header.put("content-type","application/json");
+        header.put("X-Timestamp", String.valueOf(cover.getTimestamp()));
+        header.put("X-Appid", this.appId);
+        header.put("X-Sign", cover.getSign());
+        Headers headers = Headers.of(header);
         RequestBody body = RequestBody.create(cover.getBody().getBytes(StandardCharsets.UTF_8));
         Request request = new Request.Builder()
                 .url(this.baseUrl + url)
